@@ -12,7 +12,7 @@ export function SkillBadge({ name }: SkillBadgeProps) {
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3 }}
-      viewport={{ once: true }}
+      viewport={{ once: false }}
       whileHover={{ y: -5 }}
     >
       <div className="relative overflow-hidden rounded-xl bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 px-8 py-7 h-full transition-all duration-300 hover:border-purple-500/50 flex items-center justify-center">
