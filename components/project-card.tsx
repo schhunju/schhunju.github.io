@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import Image from "next/image"
 import { ArrowUpRight, Github } from "lucide-react"
+import { AnimatedImage } from "@/components/animated-image"
 import { motion } from "framer-motion"
 
 import { Button } from "@/components/ui/button"
@@ -39,7 +39,7 @@ export function ProjectCard({ title, description, tags, image, demoUrl, repoUrl 
         <div className="relative h-full flex flex-col">
           <div className="relative overflow-hidden h-48">
             <div className="absolute inset-0 bg-gradient-to-b from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
-            <Image
+            <AnimatedImage
               src={image || "/placeholder.svg"}
               alt={title}
               fill
