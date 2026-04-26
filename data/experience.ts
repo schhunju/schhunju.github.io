@@ -17,7 +17,7 @@ export const experiences: Experience[] = [
         title: "Senior SDET / Acting QA Lead",
         period: "Nov 2022 – Present",
         description:
-          "Acted as QA Lead, driving end-to-end quality strategy, test planning, and release readiness. Architected automation frameworks using Python, Selenium, Pytest, and Accelq. Increased automation coverage by 40%, implemented Jenkins CI/CD with automated reporting, and developed a multilingual email localization framework covering 20+ languages. Mentored junior QAs and interns.",
+          "Led end-to-end quality strategy, test planning, and release readiness across multiple product teams. Architected automation frameworks using Python, Selenium, Pytest, and Accelq. Increased automation coverage by 40%, implemented Jenkins CI/CD with automated reporting, and developed a multilingual email localization framework covering 20+ languages. Mentored junior QAs and interns.",
       },
     ],
   },

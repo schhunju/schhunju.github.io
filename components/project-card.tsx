@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowUpRight, Github } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -38,10 +39,12 @@ export function ProjectCard({ title, description, tags, image, demoUrl, repoUrl 
         <div className="relative h-full flex flex-col">
           <div className="relative overflow-hidden h-48">
             <div className="absolute inset-0 bg-gradient-to-b from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
-            <img
+            <Image
               src={image || "/placeholder.svg"}
               alt={title}
-              className={`w-full h-full object-cover transition-transform duration-700 ${isHovered ? "scale-110" : "scale-100"}`}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className={`object-cover transition-transform duration-700 ${isHovered ? "scale-110" : "scale-100"}`}
             />
           </div>
 
@@ -50,8 +53,8 @@ export function ProjectCard({ title, description, tags, image, demoUrl, repoUrl 
             <p className="text-zinc-400 mb-4">{description}</p>
 
             <div className="flex flex-wrap gap-2 mb-6">
-              {tags.map((tag, index) => (
-                <Badge key={index} variant="secondary" className="bg-zinc-700/50 hover:bg-zinc-700 text-zinc-300">
+              {tags.map((tag) => (
+                <Badge key={tag} variant="secondary" className="bg-zinc-700/50 hover:bg-zinc-700 text-zinc-300">
                   {tag}
                 </Badge>
               ))}

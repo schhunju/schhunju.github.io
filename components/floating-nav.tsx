@@ -10,18 +10,19 @@ import { useMobile } from "@/hooks/use-mobile"
 import { links } from "@/data/links"
 import { profile } from "@/data/profile"
 
+// Defined outside the component so the reference is stable across renders
+const NAV_ITEMS = [
+  { name: "About", href: "#about" },
+  { name: "Skills", href: "#skills" },
+  { name: "Experience", href: "#experience" },
+  { name: "Contact", href: "#contact" },
+] as const
+
 export function FloatingNav() {
   const [isVisible, setIsVisible] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("")
   const isMobile = useMobile()
-
-  const navItems = [
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Experience", href: "#experience" },
-    { name: "Contact", href: "#contact" },
-  ]
 
   useEffect(() => {
     const hasHash = !!window.location.hash
@@ -32,6 +33,7 @@ export function FloatingNav() {
       setIsVisible(scrolled)
       if (!scrolled && window.location.hash) {
         window.history.replaceState(null, "", window.location.pathname)
+        setActiveSection("")
       }
     }
     window.addEventListener("scroll", handleScroll)
@@ -45,17 +47,20 @@ export function FloatingNav() {
   }, [])
 
   useEffect(() => {
-    const sectionIds = navItems.map((item) => item.href.replace("#", ""))
     const observers: IntersectionObserver[] = []
 
-    sectionIds.forEach((id) => {
+    NAV_ITEMS.forEach(({ href }) => {
+      const id = href.replace("#", "")
       const el = document.getElementById(id)
       if (!el) return
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
             setActiveSection(id)
-            window.history.replaceState(null, "", `#${id}`)
+            // Guard: only push state if the hash actually changed
+            if (window.location.hash !== `#${id}`) {
+              window.history.replaceState(null, "", `#${id}`)
+            }
           }
         },
         { rootMargin: "-30% 0px -65% 0px", threshold: 0 }
@@ -115,7 +120,7 @@ export function FloatingNav() {
                 <span className="text-white">{profile.brandSuffix}</span>
               </Link>
               <ul id="nav-links" role="list" className="flex items-center gap-1">
-                {navItems.map((item) => {
+                {NAV_ITEMS.map((item) => {
                   const isActive = activeSection === item.href.replace("#", "")
                   return (
                     <li key={item.name} className="relative">
@@ -166,7 +171,7 @@ export function FloatingNav() {
           transition={{ duration: 0.3 }}
         >
           <ul id="nav-mobile-links" role="list" className="flex flex-col items-center justify-center h-full">
-            {navItems.map((item) => {
+            {NAV_ITEMS.map((item) => {
               const isActive = activeSection === item.href.replace("#", "")
               return (
                 <li key={item.name}>

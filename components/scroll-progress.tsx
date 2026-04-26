@@ -10,11 +10,7 @@ export function ScrollProgress() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
-      }
+      setIsVisible(window.scrollY > 100)
     }
 
     window.addEventListener("scroll", handleScroll)

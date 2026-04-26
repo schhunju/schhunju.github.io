@@ -13,6 +13,9 @@ export function CreativeHero() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
+    // Alias as a non-nullable type so closures (e.g. Particle class) don't need null checks
+    const context: CanvasRenderingContext2D = ctx
+
     let devicePixelRatio: number
 
     // Set canvas dimensions
@@ -23,7 +26,7 @@ export function CreativeHero() {
       canvas.width = rect.width * devicePixelRatio
       canvas.height = rect.height * devicePixelRatio
 
-      ctx.scale(devicePixelRatio, devicePixelRatio)
+      context.scale(devicePixelRatio, devicePixelRatio)
     }
 
     setCanvasDimensions()
@@ -35,11 +38,12 @@ export function CreativeHero() {
     let targetX = 0
     let targetY = 0
 
-    window.addEventListener("mousemove", (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect()
       targetX = e.clientX - rect.left
       targetY = e.clientY - rect.top
-    })
+    }
+    window.addEventListener("mousemove", handleMouseMove)
 
     // Particle class
     class Particle {
@@ -61,13 +65,11 @@ export function CreativeHero() {
         this.density = Math.random() * 30 + 1
         this.distance = 0
 
-        // Create a gradient from purple to pink
-        const hue = Math.random() * 60 + 270 // 270-330 range for purples and pinks
+        const hue = Math.random() * 60 + 270 // 270–330: purples and pinks
         this.color = `hsl(${hue}, 70%, 60%)`
       }
 
       update() {
-        // Calculate distance between mouse and particle
         const dx = mouseX - this.x
         const dy = mouseY - this.y
         this.distance = Math.sqrt(dx * dx + dy * dy)
@@ -79,42 +81,35 @@ export function CreativeHero() {
         const force = (maxDistance - this.distance) / maxDistance
 
         if (this.distance < maxDistance) {
-          const directionX = forceDirectionX * force * this.density
-          const directionY = forceDirectionY * force * this.density
-
-          this.x -= directionX
-          this.y -= directionY
+          this.x -= forceDirectionX * force * this.density
+          this.y -= forceDirectionY * force * this.density
         } else {
-          if (this.x !== this.baseX) {
-            const dx = this.x - this.baseX
-            this.x -= dx / 10
-          }
-          if (this.y !== this.baseY) {
-            const dy = this.y - this.baseY
-            this.y -= dy / 10
-          }
+          if (this.x !== this.baseX) this.x -= (this.x - this.baseX) / 10
+          if (this.y !== this.baseY) this.y -= (this.y - this.baseY) / 10
         }
       }
 
       draw() {
-        ctx.fillStyle = this.color
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        ctx.closePath()
-        ctx.fill()
+        context.fillStyle = this.color
+        context.beginPath()
+        context.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+        context.closePath()
+        context.fill()
       }
     }
 
-    // Create particle grid
+    // Reduce particle density on mobile to avoid O(n²) perf issues
+    const isMobileDevice = window.innerWidth < 768
+    const gridSize = isMobileDevice ? 50 : 30
+
     const particlesArray: Particle[] = []
-    const particleCount = 1000
-    const gridSize = 30
 
     function init() {
       particlesArray.length = 0
 
-      const canvasWidth = canvas.width / devicePixelRatio
-      const canvasHeight = canvas.height / devicePixelRatio
+      // canvas is guaranteed non-null here — it was narrowed above and never reassigned
+      const canvasWidth = canvas!.width / devicePixelRatio
+      const canvasHeight = canvas!.height / devicePixelRatio
 
       const numX = Math.floor(canvasWidth / gridSize)
       const numY = Math.floor(canvasHeight / gridSize)
@@ -130,47 +125,81 @@ export function CreativeHero() {
 
     init()
 
+    // Build a spatial grid to avoid O(n²) connection checks
+    const connectionDistance = 30
+    // Pre-allocated grid — cleared and reused each frame to avoid GC pressure
+    const spatialGrid: Map<string, number[]> = new Map()
+
+    function buildGrid() {
+      spatialGrid.clear()
+      for (let i = 0; i < particlesArray.length; i++) {
+        const cx = Math.floor(particlesArray[i].x / connectionDistance)
+        const cy = Math.floor(particlesArray[i].y / connectionDistance)
+        const key = `${cx},${cy}`
+        if (!spatialGrid.has(key)) spatialGrid.set(key, [])
+        spatialGrid.get(key)!.push(i)
+      }
+      return spatialGrid
+    }
+
     // Animation loop
     const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      // Use logical (CSS) pixel dimensions — canvas is scaled by devicePixelRatio
+      const logicalWidth = canvas!.width / devicePixelRatio
+      const logicalHeight = canvas!.height / devicePixelRatio
+      context.clearRect(0, 0, logicalWidth, logicalHeight)
 
-      // Smooth mouse following
       mouseX += (targetX - mouseX) * 0.1
       mouseY += (targetY - mouseY) * 0.1
 
-      // Draw connections
       for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].update()
         particlesArray[i].draw()
+      }
 
-        // Draw connections
-        for (let j = i; j < particlesArray.length; j++) {
-          const dx = particlesArray[i].x - particlesArray[j].x
-          const dy = particlesArray[i].y - particlesArray[j].y
-          const distance = Math.sqrt(dx * dx + dy * dy)
+      // Draw connections using spatial grid (O(n) instead of O(n²))
+      const grid = buildGrid()
 
-          if (distance < 30) {
-            ctx.beginPath()
-            ctx.strokeStyle = `rgba(180, 120, 255, ${0.2 - distance / 150})`
-            ctx.lineWidth = 0.5
-            ctx.moveTo(particlesArray[i].x, particlesArray[i].y)
-            ctx.lineTo(particlesArray[j].x, particlesArray[j].y)
-            ctx.stroke()
+      for (let i = 0; i < particlesArray.length; i++) {
+        const cx = Math.floor(particlesArray[i].x / connectionDistance)
+        const cy = Math.floor(particlesArray[i].y / connectionDistance)
+
+        for (let nx = cx - 1; nx <= cx + 1; nx++) {
+          for (let ny = cy - 1; ny <= cy + 1; ny++) {
+            const neighbors = grid.get(`${nx},${ny}`)
+            if (!neighbors) continue
+            for (const j of neighbors) {
+              if (j <= i) continue
+              const dx = particlesArray[i].x - particlesArray[j].x
+              const dy = particlesArray[i].y - particlesArray[j].y
+              const distance = Math.sqrt(dx * dx + dy * dy)
+              if (distance < connectionDistance) {
+                context.beginPath()
+                context.strokeStyle = `rgba(180, 120, 255, ${0.2 - distance / 150})`
+                context.lineWidth = 0.5
+                context.moveTo(particlesArray[i].x, particlesArray[i].y)
+                context.lineTo(particlesArray[j].x, particlesArray[j].y)
+                context.stroke()
+              }
+            }
           }
         }
       }
 
-      requestAnimationFrame(animate)
+      animationFrameId = requestAnimationFrame(animate)
     }
 
+    let animationFrameId: number
     animate()
 
     // Handle window resize
     window.addEventListener("resize", init)
 
     return () => {
+      cancelAnimationFrame(animationFrameId)
       window.removeEventListener("resize", setCanvasDimensions)
       window.removeEventListener("resize", init)
+      window.removeEventListener("mousemove", handleMouseMove)
     }
   }, [])
 

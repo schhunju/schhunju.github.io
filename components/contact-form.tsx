@@ -45,32 +45,46 @@ export function ContactForm() {
         <div className="relative">
           <h3 className="text-2xl font-bold mb-6">{content.contact.form.heading}</h3>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form id="contact-form" aria-label="Contact form" onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Input
+                id="contact-form-name"
+                name="name"
+                autoComplete="name"
                 placeholder={content.contact.form.namePlaceholder}
+                aria-label={content.contact.form.namePlaceholder}
                 required
                 className="bg-zinc-900/50 border-zinc-700 focus:border-purple-500 focus:ring-purple-500/20"
               />
             </div>
             <div className="space-y-2">
               <Input
+                id="contact-form-email"
+                name="email"
                 type="email"
+                autoComplete="email"
                 placeholder={content.contact.form.emailPlaceholder}
+                aria-label={content.contact.form.emailPlaceholder}
                 required
                 className="bg-zinc-900/50 border-zinc-700 focus:border-purple-500 focus:ring-purple-500/20"
               />
             </div>
             <div className="space-y-2">
               <Input
+                id="contact-form-subject"
+                name="subject"
                 placeholder={content.contact.form.subjectPlaceholder}
+                aria-label={content.contact.form.subjectPlaceholder}
                 required
                 className="bg-zinc-900/50 border-zinc-700 focus:border-purple-500 focus:ring-purple-500/20"
               />
             </div>
             <div className="space-y-2">
               <Textarea
+                id="contact-form-message"
+                name="message"
                 placeholder={content.contact.form.messagePlaceholder}
+                aria-label={content.contact.form.messagePlaceholder}
                 rows={5}
                 required
                 className="bg-zinc-900/50 border-zinc-700 focus:border-purple-500 focus:ring-purple-500/20"

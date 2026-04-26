@@ -1,78 +1,75 @@
-# Creative Portfolio
+# Sharad Chhunju — Personal Portfolio
 
-A modern and responsive creative portfolio built using [v0.dev](https://v0.dev) by Vercel.
+A modern, responsive personal portfolio for Sharad Chhunju, QA Engineer & SDET. Built with Next.js, Tailwind CSS, and deployed via GitHub Actions to GitHub Pages.
 
-![Creative Portfolio Preview](./preview.png)
+![Portfolio Preview](./preview.png)
 
 ## Live Demo
 
-Check out the live demo: [https://v0-creative-portfolio-o7.vercel.app/](https://v0-creative-portfolio-o7.vercel.app/)
+[https://schhunju.github.io/](https://schhunju.github.io/)
 
 ## Features
 
 - Responsive design that works on all devices
-- Modern UI with smooth animations
-- Project showcase section
-- About me section
-- Contact information
-- Built with cutting-edge web technologies
+- Modern UI with smooth animations and a floating navigation bar
+- Work experience timeline
+- Skills showcase
+- Contact section
+- Deployed automatically via GitHub Actions on every push to `main`
 
 ## Technologies Used
 
-- [Next.js](https://nextjs.org/) - The React framework for production
+- [Next.js](https://nextjs.org/) - React framework for production
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [v0.dev](https://v0.dev) - AI-powered UI component generator
-- [Vercel](https://vercel.com) - Deployment platform
+- [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
+- [GitHub Actions](https://github.com/features/actions) - CI/CD and deployment
+- [GitHub Pages](https://pages.github.com/) - Hosting platform
 
 ## Getting Started
 
-To run this project locally, follow these steps:
+To run this project locally:
 
 1. Clone the repository:
-   \`\`\`bash
-   git clone https://github.com/shinekyaw/Creative-Portfolio.git
-   \`\`\`
+   ```bash
+   git clone https://github.com/schhunju/schhunju.github.io.git
+   ```
 
 2. Navigate to the project directory:
-   \`\`\`bash
-   cd Creative-Portfolio
-   \`\`\`
+   ```bash
+   cd schhunju.github.io
+   ```
 
 3. Install dependencies:
-   \`\`\`bash
+   ```bash
    npm install
-   \`\`\`
+   ```
 
 4. Run the development server:
-   \`\`\`bash
+   ```bash
    npm run dev
-   \`\`\`
+   ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser to view the portfolio.
-
-## Customization
-
-To customize this portfolio for your own use:
-
-1. Update the content in the appropriate components
-2. Replace placeholder images with your own in the `public` folder
-3. Modify the color scheme in `tailwind.config.js`
-4. Update the metadata in `app/layout.tsx`
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Deployment
 
-This project is configured for easy deployment on Vercel. To deploy your own version:
+This project is deployed automatically to GitHub Pages using GitHub Actions. On every push to the `main` branch, the workflow:
 
-1. Fork this repository
-2. Create a new project on Vercel
-3. Connect your GitHub account and select this repository
-4. Click "Deploy"
+1. Builds the Next.js app as a static export (`next build`)
+2. Uploads the `out/` directory as a GitHub Pages artifact
+3. Deploys it to [https://schhunju.github.io/](https://schhunju.github.io/)
 
-Vercel will automatically deploy your portfolio and provide you with a live URL.
+The workflow configuration lives in [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml).
 
-## Contributing
+## Customization
 
-Contributions are welcome! If you have suggestions for improvements, please open an issue or submit a pull request.
+To adapt this portfolio for your own use:
+
+1. Update personal info in `data/profile.ts`
+2. Update work experience in `data/experience.ts`
+3. Modify page content and sections in `app/page.tsx`
+4. Replace images in the `public/` folder
+5. Adjust the color scheme in `tailwind.config.ts`
 
 ## License
 
