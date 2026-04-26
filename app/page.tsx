@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { skills } from "@/data/skills"
+import { links } from "@/data/links"
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -64,7 +65,7 @@ export default function Portfolio() {
               </Button>
             </div>
             <div className="flex gap-4 pt-4">
-              <Link href="https://github.com/schhunju" target="_blank" rel="noopener noreferrer">
+              <Link href={links.github} target="_blank" rel="noopener noreferrer">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -74,7 +75,7 @@ export default function Portfolio() {
                   <span className="sr-only">GitHub</span>
                 </Button>
               </Link>
-              <Link href="https://www.linkedin.com/in/sharad-Chhunju" target="_blank" rel="noopener noreferrer">
+              <Link href={links.linkedin} target="_blank" rel="noopener noreferrer">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -84,7 +85,7 @@ export default function Portfolio() {
                   <span className="sr-only">LinkedIn</span>
                 </Button>
               </Link>
-              <Link href="mailto:sharad.Chhunju@gmail.com">
+              <Link href={`mailto:${links.email}`}>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -160,7 +161,7 @@ export default function Portfolio() {
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Email</div>
-                    <div className="font-medium">sharad.Chhunju@gmail.com</div>
+                    <div className="font-medium">{links.email}</div>
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Location</div>
@@ -299,7 +300,7 @@ export default function Portfolio() {
                   </div>
                   <div>
                     <div className="text-sm text-zinc-500">Email</div>
-                    <div className="font-medium">sharad.Chhunju@gmail.com</div>
+                    <div className="font-medium">{links.email}</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -308,7 +309,7 @@ export default function Portfolio() {
                   </div>
                   <div>
                     <div className="text-sm text-zinc-500">LinkedIn</div>
-                    <div className="font-medium">linkedin.com/in/sharad-Chhunju</div>
+                    <div className="font-medium">{links.linkedin.replace("https://www.", "")}</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -317,7 +318,7 @@ export default function Portfolio() {
                   </div>
                   <div>
                     <div className="text-sm text-zinc-500">GitHub</div>
-                    <div className="font-medium">github.com/schhunju</div>
+                    <div className="font-medium">{links.github.replace("https://", "")}</div>
                   </div>
                 </div>
               </div>
@@ -349,7 +350,7 @@ export default function Portfolio() {
             </p>
           </div>
           <div className="flex gap-4">
-            <Link href="https://github.com/schhunju" target="_blank" rel="noopener noreferrer">
+            <Link href={links.github} target="_blank" rel="noopener noreferrer">
               <Button
                 variant="ghost"
                 size="icon"
@@ -359,7 +360,7 @@ export default function Portfolio() {
                 <span className="sr-only">GitHub</span>
               </Button>
             </Link>
-            <Link href="https://www.linkedin.com/in/sharad-Chhunju" target="_blank" rel="noopener noreferrer">
+            <Link href={links.linkedin} target="_blank" rel="noopener noreferrer">
               <Button
                 variant="ghost"
                 size="icon"
@@ -369,7 +370,7 @@ export default function Portfolio() {
                 <span className="sr-only">LinkedIn</span>
               </Button>
             </Link>
-            <Link href="mailto:sharad.Chhunju@gmail.com">
+            <Link href={`mailto:${links.email}`}>
               <Button
                 variant="ghost"
                 size="icon"
