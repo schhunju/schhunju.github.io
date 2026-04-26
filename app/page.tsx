@@ -1,4 +1,7 @@
+"use client"
+
 import Link from "next/link"
+import { motion } from "framer-motion"
 import { skills } from "@/data/skills"
 import { links } from "@/data/links"
 import { profile } from "@/data/profile"
@@ -32,23 +35,50 @@ export default function Portfolio() {
         </div>
 
         <div id="hero-content" className="container relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div id="hero-text" className="space-y-6">
-            <div className="inline-block">
+          <motion.div
+            id="hero-text"
+            className="space-y-6"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.15 } },
+            }}
+          >
+            <motion.div
+              className="inline-block"
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+            >
               <div id="hero-tagline-badge" className="relative px-3 py-1 text-sm font-medium rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-4 mt-4">
                 <span className="relative z-10">{profile.tagline}</span>
                 <span aria-hidden="true" className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 animate-pulse"></span>
               </div>
-            </div>
-            <h1 id="hero-heading" className="text-5xl md:text-7xl font-bold tracking-tight">
+            </motion.div>
+
+            <motion.h1
+              id="hero-heading"
+              className="text-5xl md:text-7xl font-bold tracking-tight"
+              variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
+            >
               <span className="block">Hey, I&apos;m</span>
               <span id="hero-name" className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
                 {profile.name}
               </span>
-            </h1>
-            <p id="hero-description" className="text-xl text-zinc-400 max-w-[600px]">
+            </motion.h1>
+
+            <motion.p
+              id="hero-description"
+              className="text-xl text-zinc-400 max-w-[600px]"
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+            >
               I build robust test automation frameworks and quality systems that ship confidence — not just code.
-            </p>
-            <div id="hero-cta-buttons" className="flex flex-wrap gap-4 pt-4">
+            </motion.p>
+
+            <motion.div
+              id="hero-cta-buttons"
+              className="flex flex-wrap gap-4 pt-4"
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+            >
               <Button id="hero-btn-experience" className="relative overflow-hidden group bg-gradient-to-r from-purple-500 to-pink-500 border-0" asChild>
                 <Link href="#experience" aria-label="View work experience">
                   <span className="relative z-10 flex items-center">
@@ -65,8 +95,13 @@ export default function Portfolio() {
               >
                 <Link href="#contact" aria-label="Go to contact section">Contact Me</Link>
               </Button>
-            </div>
-            <div id="hero-social-links" className="flex gap-4 pt-4">
+            </motion.div>
+
+            <motion.div
+              id="hero-social-links"
+              className="flex gap-4 pt-4"
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+            >
               <Link id="hero-link-github" href={links.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
                 <Button variant="ghost" size="icon" className="rounded-full bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 hover:text-white">
                   <Github className="h-5 w-5" />
@@ -85,11 +120,17 @@ export default function Portfolio() {
                   <span className="sr-only">Email</span>
                 </Button>
               </Link>
-            </div>
-          </div>
-          <div id="hero-animation" className="flex justify-center">
+            </motion.div>
+          </motion.div>
+          <motion.div
+            id="hero-animation"
+            className="flex justify-center"
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+          >
             <CreativeHero />
-          </div>
+          </motion.div>
         </div>
 
         <div id="hero-scroll-indicator" aria-hidden="true" className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
