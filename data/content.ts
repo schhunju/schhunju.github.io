@@ -26,6 +26,11 @@ export const content = {
     sectionSubtitle: "Tools & technologies I work with",
   },
 
+  projects: {
+    sectionTitle: "Featured Projects",
+    sectionSubtitle: "Some of my QA engineering work",
+  },
+
   experience: {
     sectionTitle: "Work Experience",
     sectionSubtitle: "My professional journey",
