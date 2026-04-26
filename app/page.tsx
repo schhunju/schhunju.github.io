@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { skills } from "@/data/skills"
 import { links } from "@/data/links"
@@ -154,11 +155,14 @@ export default function Portfolio() {
             <div id="about-avatar" className="relative">
               <div aria-hidden="true" className="absolute -inset-4 rounded-xl bg-gradient-to-r from-purple-500/20 to-pink-500/20 blur-xl opacity-70"></div>
               <div className="relative aspect-square rounded-xl overflow-hidden border border-zinc-800 flex items-center justify-center bg-zinc-900">
-                <div id="about-avatar-initials" className="text-center p-8">
-                  <div className="text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 mb-4">SC</div>
-                  <div className="text-zinc-400 text-lg">{profile.name}</div>
-                  <div className="text-zinc-500 text-sm mt-2">{profile.title}</div>
-                </div>
+                <Image
+                  id="about-avatar-photo"
+                  src="/avatar.png"
+                  alt={profile.name}
+                  fill
+                  className="object-cover object-[100%_60%]"
+                  priority
+                />
                 <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div id="about-availability-badge" className="absolute bottom-0 left-0 w-full p-6">
                   <div className="flex items-center gap-2">
