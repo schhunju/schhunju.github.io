@@ -6,6 +6,7 @@ import { motion } from "framer-motion"
 import { skills } from "@/data/skills"
 import { links } from "@/data/links"
 import { profile } from "@/data/profile"
+import { content } from "@/data/content"
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -61,7 +62,7 @@ export default function Portfolio() {
               className="text-5xl md:text-7xl font-bold tracking-tight"
               variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
             >
-              <span className="block">Hey, I&apos;m</span>
+              <span className="block">{content.hero.greeting}</span>
               <span id="hero-name" className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
                 {profile.name}
               </span>
@@ -72,7 +73,7 @@ export default function Portfolio() {
               className="text-xl text-zinc-400 max-w-[600px]"
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
             >
-              I build robust test automation frameworks and quality systems that ship confidence — not just code.
+              {content.hero.description}
             </motion.p>
 
             <motion.div
@@ -83,7 +84,7 @@ export default function Portfolio() {
               <Button id="hero-btn-experience" className="relative overflow-hidden group bg-gradient-to-r from-purple-500 to-pink-500 border-0" asChild>
                 <Link href="#experience" aria-label="View work experience">
                   <span className="relative z-10 flex items-center">
-                    View Experience <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    {content.hero.ctaPrimary} <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </span>
                   <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                 </Link>
@@ -94,7 +95,7 @@ export default function Portfolio() {
                 className="border-zinc-700 text-pink-500 hover:text-pink-700 hover:border-zinc-500"
                 asChild
               >
-                <Link href="#contact" aria-label="Go to contact section">Contact Me</Link>
+                <Link href="#contact" aria-label="Go to contact section">{content.hero.ctaSecondary}</Link>
               </Button>
             </motion.div>
 
@@ -149,7 +150,7 @@ export default function Portfolio() {
         </div>
 
         <div id="about-content" className="container relative z-10">
-          <SectionHeading title="About Me" subtitle="Background & journey" />
+          <SectionHeading title={content.about.sectionTitle} subtitle={content.about.sectionSubtitle} />
 
           <div id="about-grid" className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mt-16">
             <div id="about-avatar" className="relative">
@@ -167,7 +168,7 @@ export default function Portfolio() {
                 <div id="about-availability-badge" className="absolute bottom-0 left-0 w-full p-6">
                   <div className="flex items-center gap-2">
                     <div aria-hidden="true" className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
-                    <span className="text-sm font-medium">Open to opportunities</span>
+                    <span className="text-sm font-medium">{content.about.availabilityLabel}</span>
                   </div>
                 </div>
               </div>
@@ -183,26 +184,26 @@ export default function Portfolio() {
 
                 <dl id="about-details" className="grid grid-cols-2 gap-4 mt-8">
                   <div className="space-y-1">
-                    <dt className="text-sm text-zinc-500">Name</dt>
+                    <dt className="text-sm text-zinc-500">{content.about.detailLabels.name}</dt>
                     <dd id="about-detail-name" className="font-medium">{profile.name}</dd>
                   </div>
                   <div className="space-y-1">
-                    <dt className="text-sm text-zinc-500">Email</dt>
+                    <dt className="text-sm text-zinc-500">{content.about.detailLabels.email}</dt>
                     <dd id="about-detail-email" className="font-medium">{links.email}</dd>
                   </div>
                   <div className="space-y-1">
-                    <dt className="text-sm text-zinc-500">Location</dt>
+                    <dt className="text-sm text-zinc-500">{content.about.detailLabels.location}</dt>
                     <dd id="about-detail-location" className="font-medium">{profile.location}</dd>
                   </div>
                   <div className="space-y-1">
-                    <dt className="text-sm text-zinc-500">Availability</dt>
-                    <dd id="about-detail-availability" className="font-medium text-green-500">Open to opportunities</dd>
+                    <dt className="text-sm text-zinc-500">{content.about.detailLabels.availability}</dt>
+                    <dd id="about-detail-availability" className="font-medium text-green-500">{content.about.availabilityLabel}</dd>
                   </div>
                 </dl>
 
                 <div id="about-resume-download" className="mt-8">
                   <a href={links.resume} download={profile.resumeFilename} aria-label="Download resume PDF">
-                    <Button id="about-btn-resume" className="bg-zinc-800 hover:bg-zinc-700 text-white">Download Resume</Button>
+                    <Button id="about-btn-resume" className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 text-white">{content.about.resumeButton}</Button>
                   </a>
                 </div>
               </GlassmorphicCard>
@@ -219,7 +220,7 @@ export default function Portfolio() {
         </div>
 
         <div id="skills-content" className="container relative z-10">
-          <SectionHeading title="My Skills" subtitle="Tools & technologies I work with" />
+          <SectionHeading title={content.skills.sectionTitle} subtitle={content.skills.sectionSubtitle} />
 
           <ul id="skills-grid" aria-label="Skills list" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-16 list-none p-0">
             {skills.map((skill) => (
@@ -245,7 +246,7 @@ export default function Portfolio() {
         </div>
 
         <div id="experience-content" className="container relative z-10">
-          <SectionHeading title="Work Experience" subtitle="My professional journey" />
+          <SectionHeading title={content.experience.sectionTitle} subtitle={content.experience.sectionSubtitle} />
 
           <div id="experience-timeline" className="mt-16">
             <Timeline />
@@ -261,18 +262,18 @@ export default function Portfolio() {
         </div>
 
         <div id="contact-content" className="container relative z-10">
-          <SectionHeading title="Get In Touch" subtitle="Let's work together" />
+          <SectionHeading title={content.contact.sectionTitle} subtitle={content.contact.sectionSubtitle} />
 
           <div id="contact-grid" className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mt-16">
             <GlassmorphicCard>
-              <h3 id="contact-info-heading" className="text-2xl font-bold mb-6">Contact Information</h3>
+              <h3 id="contact-info-heading" className="text-2xl font-bold mb-6">{content.contact.infoHeading}</h3>
               <ul id="contact-info-list" className="space-y-6 list-none p-0">
                 <li id="contact-info-email" className="flex items-center gap-4">
                   <div aria-hidden="true" className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center">
                     <Mail className="h-5 w-5 text-purple-400" />
                   </div>
                   <div>
-                    <div className="text-sm text-zinc-500">Email</div>
+                    <div className="text-sm text-zinc-500">{content.contact.contactLabels.email}</div>
                     <a href={`mailto:${links.email}`} className="font-medium hover:text-purple-400 transition-colors">{links.email}</a>
                   </div>
                 </li>
@@ -281,7 +282,7 @@ export default function Portfolio() {
                     <Linkedin className="h-5 w-5 text-purple-400" />
                   </div>
                   <div>
-                    <div className="text-sm text-zinc-500">LinkedIn</div>
+                    <div className="text-sm text-zinc-500">{content.contact.contactLabels.linkedin}</div>
                     <a href={links.linkedin} target="_blank" rel="noopener noreferrer" className="font-medium hover:text-purple-400 transition-colors">{links.linkedin.replace("https://www.", "")}</a>
                   </div>
                 </li>
@@ -290,17 +291,17 @@ export default function Portfolio() {
                     <Github className="h-5 w-5 text-purple-400" />
                   </div>
                   <div>
-                    <div className="text-sm text-zinc-500">GitHub</div>
+                    <div className="text-sm text-zinc-500">{content.contact.contactLabels.github}</div>
                     <a href={links.github} target="_blank" rel="noopener noreferrer" className="font-medium hover:text-purple-400 transition-colors">{links.github.replace("https://", "")}</a>
                   </div>
                 </li>
               </ul>
 
               <div id="contact-status" className="mt-8 pt-8 border-t border-zinc-800">
-                <h4 className="text-lg font-medium mb-4">Current Status</h4>
+                <h4 className="text-lg font-medium mb-4">{content.contact.statusHeading}</h4>
                 <div className="flex items-center gap-2">
                   <div aria-hidden="true" className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
-                  <span>Open to new opportunities and collaborations</span>
+                  <span>{content.about.availabilityStatus}</span>
                 </div>
               </div>
             </GlassmorphicCard>

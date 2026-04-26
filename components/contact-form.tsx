@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
+import { content } from "@/data/content"
 
 export function ContactForm() {
   const { toast } = useToast()
@@ -23,8 +24,8 @@ export function ContactForm() {
     await new Promise((resolve) => setTimeout(resolve, 1500))
 
     toast({
-      title: "Message sent!",
-      description: "Thanks for reaching out. I'll get back to you soon.",
+      title: content.contact.form.successTitle,
+      description: content.contact.form.successDescription,
     })
 
     setIsSubmitting(false)
@@ -42,12 +43,12 @@ export function ContactForm() {
         <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl blur opacity-25 hover:opacity-100 transition duration-1000 hover:duration-200"></div>
 
         <div className="relative">
-          <h3 className="text-2xl font-bold mb-6">Send Me a Message</h3>
+          <h3 className="text-2xl font-bold mb-6">{content.contact.form.heading}</h3>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Input
-                placeholder="Your Name"
+                placeholder={content.contact.form.namePlaceholder}
                 required
                 className="bg-zinc-900/50 border-zinc-700 focus:border-purple-500 focus:ring-purple-500/20"
               />
@@ -55,21 +56,21 @@ export function ContactForm() {
             <div className="space-y-2">
               <Input
                 type="email"
-                placeholder="Your Email"
+                placeholder={content.contact.form.emailPlaceholder}
                 required
                 className="bg-zinc-900/50 border-zinc-700 focus:border-purple-500 focus:ring-purple-500/20"
               />
             </div>
             <div className="space-y-2">
               <Input
-                placeholder="Subject"
+                placeholder={content.contact.form.subjectPlaceholder}
                 required
                 className="bg-zinc-900/50 border-zinc-700 focus:border-purple-500 focus:ring-purple-500/20"
               />
             </div>
             <div className="space-y-2">
               <Textarea
-                placeholder="Your Message"
+                placeholder={content.contact.form.messagePlaceholder}
                 rows={5}
                 required
                 className="bg-zinc-900/50 border-zinc-700 focus:border-purple-500 focus:ring-purple-500/20"
@@ -81,10 +82,10 @@ export function ContactForm() {
               disabled={isSubmitting}
             >
               {isSubmitting ? (
-                <>Sending...</>
+                <>{content.contact.form.submittingButton}</>
               ) : (
                 <>
-                  Send Message <Send className="ml-2 h-4 w-4" />
+                  {content.contact.form.submitButton} <Send className="ml-2 h-4 w-4" />
                 </>
               )}
             </Button>
