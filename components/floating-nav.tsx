@@ -51,8 +51,8 @@ export function FloatingNav() {
           {isMobile ? (
             <div id="nav-mobile-bar" className="relative flex items-center justify-between">
               <Link id="nav-logo-mobile" href="/" aria-label={`${profile.name} — home`} className="font-bold text-lg">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">{profile.firstName}</span>
-                <span className="text-white">.QA</span>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">{profile.brandName}</span>
+                <span className="text-white">{profile.brandSuffix}</span>
               </Link>
               <Button
                 id="nav-mobile-menu-toggle"
@@ -70,8 +70,8 @@ export function FloatingNav() {
           ) : (
             <nav id="nav-desktop" aria-label="Desktop navigation" className="relative flex items-center gap-1">
               <Link id="nav-logo-desktop" href="/" aria-label={`${profile.name} — home`} className="font-bold text-lg mr-4">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">{profile.firstName}</span>
-                <span className="text-white">.QA</span>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">{profile.brandName}</span>
+                <span className="text-white">{profile.brandSuffix}</span>
               </Link>
               <ul id="nav-links" role="list" className="flex items-center gap-1">
                 {navItems.map((item) => (

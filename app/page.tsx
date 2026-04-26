@@ -313,8 +313,8 @@ export default function Portfolio() {
         <div className="container flex flex-col md:flex-row justify-between items-center gap-6">
           <div id="footer-brand">
             <Link id="footer-logo" href="/" aria-label={`${profile.name} — back to top`} className="font-bold text-xl">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">{profile.firstName}</span>
-              <span className="text-white">.QA</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">{profile.brandName}</span>
+              <span className="text-white">{profile.brandSuffix}</span>
             </Link>
             <p id="footer-copyright" className="text-sm text-zinc-500 mt-2">
               © {new Date().getFullYear()} {profile.name}. All rights reserved.

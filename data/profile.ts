@@ -1,6 +1,8 @@
 export const profile = {
   name: "Sharad Chhunju",
   firstName: "Sharad",
+  brandName: "Sharad",
+  brandSuffix: "Tests",
   title: "QA Engineer",
   tagline: "QA Engineer & SDET",
   location: "Nepal",
