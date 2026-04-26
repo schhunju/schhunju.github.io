@@ -14,7 +14,7 @@ export function SectionHeading({ title, subtitle }: SectionHeadingProps) {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
       >
         <div className="inline-block">
           <div className="relative px-3 py-1 text-sm font-medium rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-2">
@@ -29,7 +29,7 @@ export function SectionHeading({ title, subtitle }: SectionHeadingProps) {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
       >
         {title}
       </motion.h2>
@@ -39,7 +39,7 @@ export function SectionHeading({ title, subtitle }: SectionHeadingProps) {
         initial={{ opacity: 0, scale: 0 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.4 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
       />
     </div>
   )
