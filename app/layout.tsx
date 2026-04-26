@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { profile } from '@/data/profile'
 
 export const metadata: Metadata = {
-  title: 'Sharad Chhunju | Senior QA Engineer',
-  description: 'Portfolio of Sharad Chhunju — Senior QA Engineer specializing in test automation, SDET, and quality engineering.',
+  title: `${profile.name} | ${profile.title}`,
+  description: `Portfolio of ${profile.name} — ${profile.title} specializing in test automation, SDET, and quality engineering.`,
 }
 
 export default function RootLayout({

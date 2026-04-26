@@ -7,6 +7,8 @@ import { Menu, X } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { useMobile } from "@/hooks/use-mobile"
+import { links } from "@/data/links"
+import { profile } from "@/data/profile"
 
 export function FloatingNav() {
   const [isVisible, setIsVisible] = useState(false)
@@ -54,7 +56,7 @@ export function FloatingNav() {
           {isMobile ? (
             <div className="relative flex items-center justify-between">
               <Link href="/" className="font-bold text-lg">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Sharad</span>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">{profile.firstName}</span>
                 <span className="text-white">.QA</span>
               </Link>
               <Button
@@ -69,7 +71,7 @@ export function FloatingNav() {
           ) : (
             <div className="relative flex items-center gap-1">
               <Link href="/" className="font-bold text-lg mr-4">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Sharad</span>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">{profile.firstName}</span>
                 <span className="text-white">.QA</span>
               </Link>
               {navItems.map((item) => (
@@ -82,12 +84,14 @@ export function FloatingNav() {
                   {item.name}
                 </Link>
               ))}
-              <Button
-                size="sm"
-                className="ml-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0"
-              >
-                Resume
-              </Button>
+              <a href={links.resume} download={profile.resumeFilename}>
+                <Button
+                  size="sm"
+                  className="ml-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0"
+                >
+                  Resume
+                </Button>
+              </a>
             </div>
           )}
         </div>
@@ -112,9 +116,11 @@ export function FloatingNav() {
                 {item.name}
               </Link>
             ))}
-            <Button className="mt-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0">
-              Resume
-            </Button>
+            <a href={links.resume} download={profile.resumeFilename}>
+              <Button className="mt-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0">
+                Resume
+              </Button>
+            </a>
           </div>
         </motion.div>
       )}

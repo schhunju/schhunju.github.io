@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { skills } from "@/data/skills"
 import { links } from "@/data/links"
+import { profile } from "@/data/profile"
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -34,14 +35,14 @@ export default function Portfolio() {
           <div className="space-y-6">
             <div className="inline-block">
               <div className="relative px-3 py-1 text-sm font-medium rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-4 mt-4">
-                <span className="relative z-10">Senior QA Engineer & SDET</span>
+                <span className="relative z-10">{profile.tagline}</span>
                 <span className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 animate-pulse"></span>
               </div>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
               <span className="block">Hey, I&apos;m</span>
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-                Sharad Chhunju
+                {profile.name}
               </span>
             </h1>
             <p className="text-xl text-zinc-400 max-w-[600px]">
@@ -125,8 +126,8 @@ export default function Portfolio() {
               <div className="relative aspect-square rounded-xl overflow-hidden border border-zinc-800 flex items-center justify-center bg-zinc-900">
                 <div className="text-center p-8">
                   <div className="text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 mb-4">SC</div>
-                  <div className="text-zinc-400 text-lg">Sharad Chhunju</div>
-                  <div className="text-zinc-500 text-sm mt-2">Senior QA Engineer</div>
+                  <div className="text-zinc-400 text-lg">{profile.name}</div>
+                  <div className="text-zinc-500 text-sm mt-2">{profile.title}</div>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 w-full p-6">
@@ -140,24 +141,14 @@ export default function Portfolio() {
 
             <div className="space-y-6">
               <GlassmorphicCard>
-                <p className="text-lg text-zinc-300">
-                  I&apos;m a Senior QA Engineer with strong expertise in test automation, SDET practices, and building
-                  quality systems from the ground up. I love turning manual, error-prone processes into reliable,
-                  scalable automation frameworks.
-                </p>
-                <p className="text-lg text-zinc-300 mt-4">
-                  My toolkit spans Selenium, Playwright, Cypress, Appium, REST Assured, and CI/CD pipelines. I&apos;ve
-                  worked across web, mobile, and API testing domains, helping teams ship faster with confidence.
-                </p>
-                <p className="text-lg text-zinc-300 mt-4">
-                  When I&apos;m not debugging flaky tests, I explore new testing strategies, contribute to the QA
-                  community, and keep up with the latest in software quality engineering.
-                </p>
+                {profile.bio.map((para, i) => (
+                  <p key={i} className={`text-lg text-zinc-300 ${i > 0 ? "mt-4" : ""}`}>{para}</p>
+                ))}
 
                 <div className="grid grid-cols-2 gap-4 mt-8">
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Name</div>
-                    <div className="font-medium">Sharad Chhunju</div>
+                    <div className="font-medium">{profile.name}</div>
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Email</div>
@@ -165,7 +156,7 @@ export default function Portfolio() {
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Location</div>
-                    <div className="font-medium">Nepal</div>
+                    <div className="font-medium">{profile.location}</div>
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Availability</div>
@@ -174,7 +165,9 @@ export default function Portfolio() {
                 </div>
 
                 <div className="mt-8">
-                  <Button className="bg-zinc-800 hover:bg-zinc-700 text-white">Download Resume</Button>
+                  <a href={links.resume} download={profile.resumeFilename}>
+                    <Button className="bg-zinc-800 hover:bg-zinc-700 text-white">Download Resume</Button>
+                  </a>
                 </div>
               </GlassmorphicCard>
             </div>
@@ -342,11 +335,11 @@ export default function Portfolio() {
         <div className="container flex flex-col md:flex-row justify-between items-center gap-6">
           <div>
             <Link href="/" className="font-bold text-xl">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Sharad</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">{profile.firstName}</span>
               <span className="text-white">.QA</span>
             </Link>
             <p className="text-sm text-zinc-500 mt-2">
-              © {new Date().getFullYear()} Sharad Chhunju. All rights reserved.
+              © {new Date().getFullYear()} {profile.name}. All rights reserved.
             </p>
           </div>
           <div className="flex gap-4">
