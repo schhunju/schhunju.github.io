@@ -29,7 +29,7 @@ export function FloatingNav() {
   const navItems = [
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
+    // { name: "Projects", href: "#projects" }, // hidden until NDA clears
     { name: "Experience", href: "#experience" },
     { name: "Contact", href: "#contact" },
   ]
